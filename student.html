@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Module</title>
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f4f4;
+            margin:20px;
+        }
+        h1{
+            text-align:center;
+        }
+        nav{
+            text-align:center;
+            margin-bottom:20px;
+            font-size:18px;
+        }
+        nav a{
+            text-decoration:none;
+            color:#007bff;
+            font-weight:bold;
+            margin:0 10px;
+        }
+        .card{
+            background:white;
+            width:350px;
+            padding:15px;
+            margin:20px auto;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+        button{
+            background:#007bff;
+            color:white;
+            border:none;
+            padding:10px 20px;
+            border-radius:5px;
+            cursor:pointer;
+        }
+        button:hover{
+            background:#0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="student.html">Student</a> |
+    <a href="coordinator.html">Coordinator</a> |
+    <a href="admin.html">Admin</a>
+</nav>
+<hr>
+
+<h1>Event Registration Portal</h1>
+<div id="eventList"></div>
+
+<script>
+
+let events = JSON.parse(localStorage.getItem("events")) || [];
+
+let output = "";
+
+if(events.length === 0){
+    output = "<p style='text-align:center'>No events published yet. Ask the Coordinator to add one.</p>";
+}
+
+events.forEach(event=>{
+output+=`
+<div class="card">
+<h2>${event.name}</h2>
+<p><b>Date:</b> ${event.date}</p>
+<p><b>Venue:</b> ${event.venue}</p>
+<p><b>Eligibility:</b> ${event.eligibility}</p>
+<p>${event.description || ""}</p>
+
+<a href="${event.link}" target="_blank">
+<button>Register Now</button>
+</a>
+
+</div>
+`;
+});
+
+document.getElementById("eventList").innerHTML=output;
+
+</script>
+</body>
+</html>
